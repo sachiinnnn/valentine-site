@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Be My Valentine? 💕</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(135deg, #ff6bcb, #ff3b3b);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #container {
+            margin-top: 120px;
+            background: rgba(255,255,255,0.85);
+            padding: 30px;
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #d0006f;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 12px 25px;
+            margin: 10px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        #yes {
+            background: #ff1e56;
+            color: white;
+        }
+
+        #no {
+            background: white;
+            position: absolute;
+        }
+
+        #finalMessage {
+            display: none;
+            margin-top: 120px;
+            background: rgba(255,255,255,0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            animation: floatUp 3s linear infinite;
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-500px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<div id="container">
+    <h1>Mahiku, will you be my Valentine? 💕</h1>
+
+    <button id="yes" onclick="showMessage()">YES 💖</button>
+    <button id="no" onmouseover="moveNo()" onclick="shrinkNo()">NO</button>
+</div>
+
+<div id="finalMessage">
+    <h1>💖 YAYYYY!!! 💖</h1>
+    <p>Best decision ever 😘</p>
+    <img src="https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif" width="300">
+    <h2>I love you ❤️</h2>
+</div>
+
+<script>
+let noClickCount = 0;
+
+function moveNo() {
+    let x = Math.random() * (window.innerWidth - 120);
+    let y = Math.random() * (window.innerHeight - 120);
+    document.getElementById("no").style.left = x + "px";
+    document.getElementById("no").style.top = y + "px";
+}
+
+function shrinkNo() {
+    noClickCount++;
+    let noBtn = document.getElementById("no");
+
+    if (noClickCount < 5) {
+        let currentSize = 20 - noClickCount * 3;
+        noBtn.style.fontSize = currentSize + "px";
+    } else {
+        noBtn.style.display = "none";
+    }
+}
+
+function showMessage() {
+    document.getElementById("container").style.display = "none";
+    document.getElementById("finalMessage").style.display = "inline-block";
+    document.getElementById("bgMusic").play();
+    createHearts();
+}
+
+function createHearts() {
+    for (let i = 0; i < 20; i++) {
+        let heart = document.createElement("div");
+        heart.innerHTML = "💖";
+        heart.className = "heart";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = window.innerHeight + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 3000);
+    }
+}
+</script>
+
+</body>
+</html>
